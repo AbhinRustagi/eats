@@ -1,6 +1,12 @@
+"use client";
+
+import PlaceCard, { IPlaceCard } from "@/components/PlaceCard";
 import { DropdownSelect } from "@/components/Select";
+import { useState } from "react";
 
 export default function Home() {
+  const [places, setPlaces] = useState<IPlaceCard[]>([]);
+
   return (
     <div>
       <p className="mb-8">
@@ -25,6 +31,11 @@ export default function Home() {
           placeholder="Visited/Wishlisted"
           options={["All", "Visited", "Wishlisted"]}
         />
+      </div>
+      <div className="grid grid-cols-3 gap-2 mt-8">
+        {places.map((place) => (
+          <PlaceCard key={place.title} {...place} />
+        ))}
       </div>
     </div>
   );
