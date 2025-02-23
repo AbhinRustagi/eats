@@ -1,29 +1,31 @@
-import Link from "next/link";
+import { DropdownSelect } from "@/components/Select";
 
 export default function Home() {
   return (
-    <div className="mx-auto max-w-4xl px-5 py-6">
-      <header>
-        <h1 className="text-3xl font-bold mb-2">Eats</h1>
-        <p>
-          A project by{" "}
-          <Link
-            href="https://www.abhin.dev/"
-            target="_blank"
-            className="underline"
-          >
-            Abhin Rustagi
-          </Link>
-          .
-        </p>
-      </header>
-      <main className="">
-        <div>{/* filter box */}</div>
-        <div>
-          {/* grid and list view */}
-          {/* list & thumbnails */}
-        </div>
-      </main>
+    <div>
+      <p className="mb-8">
+        collection of places I have eaten at, and would like to eat at - with
+        notes & reviews.
+      </p>
+      <div className="flex gap-2 flex-wrap">
+        {/* Add cookies to remember preferences */}
+        {/* Loads dynamically */}
+        <DropdownSelect label="Country" placeholder="Country" options={[]} />
+        {/* Loads dynamically */}
+        <DropdownSelect label="State" placeholder="State" options={[]} />
+        {/* Loads dynamically */}
+        <DropdownSelect label="Region" placeholder="Region" options={[]} />
+        <DropdownSelect
+          label="Type"
+          placeholder="Type"
+          options={["All", "Bar", "Cafe", "Restaurant", "Other"]}
+        />
+        <DropdownSelect
+          label="Visited/Wishlisted"
+          placeholder="Visited/Wishlisted"
+          options={["All", "Visited", "Wishlisted"]}
+        />
+      </div>
     </div>
   );
 }

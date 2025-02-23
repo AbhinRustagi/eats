@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter_Tight } from "next/font/google";
+import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/Header";
 
-const interTight = Inter_Tight({
-  weight: "variable",
+const anonymous_pro = Anonymous_Pro({
+  weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--inter-tight",
+  variable: "--font-anonymous-pro",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interTight.className} antialiased`}>{children}</body>
+      <body className={`${anonymous_pro.className} antialiased`}>
+        <main className="mx-auto max-w-3xl px-3 my-12">
+          <Header />
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
