@@ -13,7 +13,8 @@ export function Header() {
         >
           Abhin Rustagi
         </Link>
-        .
+        . A collection of places I have eaten at, and want to eat at - with
+        notes & reviews.
       </p>
     </header>
   );

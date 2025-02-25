@@ -9,10 +9,6 @@ export default function Home() {
 
   return (
     <div>
-      <p className="mb-8">
-        collection of places I have eaten at, and would like to eat at - with
-        notes & reviews.
-      </p>
       <div className="flex gap-2 flex-wrap">
         {/* Add cookies to remember preferences */}
         {/* Loads dynamically */}
@@ -27,12 +23,17 @@ export default function Home() {
           options={["All", "Bar", "Cafe", "Restaurant", "Other"]}
         />
         <DropdownSelect
-          label="Visited/Wishlisted"
-          placeholder="Visited/Wishlisted"
+          label="Status"
+          placeholder="Status"
           options={["All", "Visited", "Wishlisted"]}
         />
+        <DropdownSelect
+          label="Cuisine"
+          placeholder="Cuisine"
+          options={["All"]}
+        />
       </div>
-      <div className="grid grid-cols-3 gap-2 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
         {places.map((place) => (
           <PlaceCard key={place.title} {...place} />
         ))}
