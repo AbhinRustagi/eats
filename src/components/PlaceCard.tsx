@@ -10,15 +10,7 @@ import {
 } from "./ui/card";
 import { Place } from "@/lib/types";
 import Link from "next/link";
-
-const bgColors = {
-  visited: "bg-green-200",
-  wishlisted: "bg-orange-200",
-  bar: "bg-red-200",
-  restaurant: "bg-blue-200",
-  cafe: "bg-violet-200",
-  other: "bg-gray-200",
-};
+import { bgColors } from "@/lib/tags-colors";
 
 export type IPlaceCard = Omit<Place, "longitude" | "latitude" | "notes">;
 
@@ -27,7 +19,7 @@ export default function PlaceCard(props: IPlaceCard) {
     <Card className="w-full relative overflow-hidden">
       <Link
         className="inset absolute h-full w-full z-10 top-0 left-0"
-        href=""
+        href={`/place/${props.id}`}
       ></Link>
       <CardHeader className="py-3 px-3 flex flex-row gap-1 justify-between space-y-0 items-start">
         <CardTitle className="text-lg font-bold flex-1">
@@ -62,14 +54,6 @@ export default function PlaceCard(props: IPlaceCard) {
           >
             {props.type}
           </div>
-          {props.cuisine && (
-            <div
-              className="text-xs
-                bg-lime-200 px-2 py-1 rounded-2xl"
-            >
-              {props.cuisine}
-            </div>
-          )}
         </div>
       </CardFooter>
     </Card>

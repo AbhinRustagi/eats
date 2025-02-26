@@ -1,4 +1,10 @@
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Place } from "./types";
 
@@ -16,5 +22,11 @@ export const db = getFirestore(app);
 export async function getRestaurants(): Promise<Place[]> {
   const ref = collection(db, "eats_restaurants");
   const docs = await getDocs(ref);
-  return docs.docs.map((doc) => doc.data()) as Place[];
+  return docs.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Place[];
+}
+
+export async function getRestaurantById(id: string): Promise<Place> {
+  const ref = doc(db, "eats_restaurants", id);
+  const document = await getDoc(ref);
+  return { id: document.id, ...document.data() } as Place;
 }

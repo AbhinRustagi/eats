@@ -1,12 +1,12 @@
 export interface Place {
+  id: string;
   title: string;
   image: string;
   country: string;
   state: string;
   region: string;
   type: "bar" | "cafe" | "restaurant" | "other";
-  status: "visited" | "wishlisted";
-  cuisine?: string;
+  status: "wishlisted" | "visited";
   rating: number;
   tags?: string[];
   notes: string;
