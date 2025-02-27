@@ -1,40 +1,93 @@
 "use client";
 
-import PlaceCard, { IPlaceCard } from "@/components/PlaceCard";
+import PlaceCard from "@/components/PlaceCard";
 import { DropdownSelect } from "@/components/Select";
-import { useState } from "react";
+import { getRestaurants } from "@/lib/firebase";
+import { useRestaurantsStore } from "@/lib/zustand";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [places, setPlaces] = useState<IPlaceCard[]>([]);
+  const {
+    configs,
+    updateRestaurants,
+    filteredRestaurants,
+    filters,
+    updateFilter,
+  } = useRestaurantsStore((state) => state);
+
+  useEffect(() => {
+    // Fetch restaurants
+    getRestaurants().then((restaurants) => {
+      updateRestaurants(restaurants);
+    });
+  }, []);
 
   return (
     <div>
       <div className="flex gap-2 flex-wrap">
         {/* Add cookies to remember preferences */}
-        {/* Loads dynamically */}
-        <DropdownSelect label="Country" placeholder="Country" options={[]} />
-        {/* Loads dynamically */}
-        <DropdownSelect label="State" placeholder="State" options={[]} />
-        {/* Loads dynamically */}
-        <DropdownSelect label="Region" placeholder="Region" options={[]} />
+        <DropdownSelect
+          label="Country"
+          placeholder="Country"
+          options={["all", ...Object.keys(configs)]}
+          name="country"
+          updateFilter={updateFilter}
+          defaultValue="all"
+        />
+        {filters.country !== "all" && (
+          <>
+            <DropdownSelect
+              label="State"
+              placeholder="State"
+              options={(() => {
+                if (filters.country === "all") {
+                  return ["all"];
+                }
+                return ["all", ...Object.keys(configs[filters.country])];
+              })()}
+              updateFilter={updateFilter}
+              defaultValue="all"
+              name="state"
+            />
+            <DropdownSelect
+              name="region"
+              label="Region"
+              placeholder="Region"
+              options={(() => {
+                if (filters.state === "all") {
+                  return ["all"];
+                }
+
+                const regions = Array.from(
+                  configs[filters.country][filters.state]
+                );
+
+                return ["all", ...regions];
+              })()}
+              updateFilter={updateFilter}
+              defaultValue="all"
+            />
+          </>
+        )}
         <DropdownSelect
           label="Type"
           placeholder="Type"
-          options={["All", "Bar", "Cafe", "Restaurant", "Other"]}
+          options={["all", "bar", "cafe", "restaurant", "other"]}
+          updateFilter={updateFilter}
+          defaultValue="all"
+          name="type"
         />
         <DropdownSelect
           label="Status"
           placeholder="Status"
-          options={["All", "Visited", "Wishlisted"]}
-        />
-        <DropdownSelect
-          label="Cuisine"
-          placeholder="Cuisine"
-          options={["All"]}
+          updateFilter={updateFilter}
+          defaultValue="all"
+          options={["all", "visited", "wishlisted"]}
+          name="status"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
-        {places.map((place) => (
+        {filteredRestaurants.map((place) => (
           <PlaceCard key={place.title} {...place} />
         ))}
       </div>

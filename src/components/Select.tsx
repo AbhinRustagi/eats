@@ -8,16 +8,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Filters } from "@/lib/types";
 
 interface IDropdownSelect {
+  name: keyof Filters;
   options: string[];
   label: string;
   placeholder: string;
+  updateFilter: (key: keyof Filters, value: string) => void;
+  defaultValue: string;
 }
 
 export function DropdownSelect(props: IDropdownSelect) {
   return (
-    <Select>
+    <Select
+      onValueChange={(value) => props.updateFilter(props.name, value)}
+      defaultValue={props.defaultValue}
+    >
       <SelectTrigger className="w-[150px]">
         <SelectValue placeholder={props.placeholder} />
       </SelectTrigger>

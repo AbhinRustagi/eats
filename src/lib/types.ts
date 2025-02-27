@@ -13,3 +13,30 @@ export interface Place {
   longitude: number;
   latitude: number;
 }
+
+interface Configs {
+  [country: string]: {
+    [state: string]: Set<string>;
+  };
+}
+
+export interface Filters {
+  country: string;
+  state: string;
+  region: string;
+  type: string;
+  status: string;
+}
+
+export interface ContextState {
+  restaurants: Place[];
+  filters: Filters;
+  filteredRestaurants: Place[];
+  configs: Configs;
+}
+
+export interface ContextAction {
+  updateFilter: (key: keyof Filters, value: string) => void;
+  updateRestaurants: (restaurants: ContextState["restaurants"]) => void;
+  updateConfig: (config: ContextState["config"]) => void;
+}
