@@ -40,5 +40,5 @@ export interface ContextAction {
   updateFetching: (isFetching: boolean) => void;
   updateFilter: (key: keyof Filters, value: string) => void;
   updateRestaurants: (restaurants: ContextState["restaurants"]) => void;
-  updateConfig: (config: ContextState["config"]) => void;
+  updateConfigs: (configs: ContextState["configs"]) => void;
 }

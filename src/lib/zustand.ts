@@ -25,7 +25,7 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
           configs,
         };
       }),
-    updateConfig: (config) => set(() => ({ configs: config })),
+    updateConfigs: (configs) => set(() => ({ configs: configs })),
     updateFilter: (key, value) =>
       set((state) => {
         const filters = { ...state.filters, [key]: value };
