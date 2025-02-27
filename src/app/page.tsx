@@ -13,13 +13,21 @@ export default function Home() {
     filteredRestaurants,
     filters,
     updateFilter,
+    updateFetching,
+    isFetching,
   } = useRestaurantsStore((state) => state);
 
   useEffect(() => {
     // Fetch restaurants
-    getRestaurants().then((restaurants) => {
-      updateRestaurants(restaurants);
-    });
+    updateFetching(true);
+    getRestaurants()
+      .then((restaurants) => {
+        updateRestaurants(restaurants);
+        updateFetching(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching restaurants", error);
+      });
   }, []);
 
   return (
@@ -86,11 +94,14 @@ export default function Home() {
           name="status"
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
-        {filteredRestaurants.map((place) => (
-          <PlaceCard key={place.title} {...place} />
-        ))}
-      </div>
+      {isFetching && <div className="mt-6 text-lg">🟡 Fetching data...</div>}
+      {!isFetching && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
+          {filteredRestaurants.map((place) => (
+            <PlaceCard key={place.title} {...place} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

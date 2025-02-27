@@ -14,6 +14,8 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
     },
     filteredRestaurants: [],
     configs: {},
+    isFetching: false,
+    updateFetching: (isFetching) => set(() => ({ isFetching })),
     updateRestaurants: (restaurants) =>
       set(() => {
         const configs = buildConfigMap(restaurants);

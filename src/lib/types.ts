@@ -29,6 +29,7 @@ export interface Filters {
 }
 
 export interface ContextState {
+  isFetching: boolean;
   restaurants: Place[];
   filters: Filters;
   filteredRestaurants: Place[];
@@ -36,6 +37,7 @@ export interface ContextState {
 }
 
 export interface ContextAction {
+  updateFetching: (isFetching: boolean) => void;
   updateFilter: (key: keyof Filters, value: string) => void;
   updateRestaurants: (restaurants: ContextState["restaurants"]) => void;
   updateConfig: (config: ContextState["config"]) => void;
