@@ -7,7 +7,7 @@ export interface Place {
   region: string;
   type: "bar" | "cafe" | "restaurant" | "other";
   status: "wishlisted" | "visited";
-  rating: number;
+  rating?: number;
   tags?: string[];
   notes: string;
   longitude: number;

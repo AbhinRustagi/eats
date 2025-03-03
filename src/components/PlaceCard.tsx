@@ -25,12 +25,14 @@ export default function PlaceCard(props: IPlaceCard) {
         <CardTitle className="text-lg font-bold flex-1">
           {props.title}
         </CardTitle>
-        <div className="font-bold text-lg">{props.rating}🍴</div>
+        <div className="font-bold text-lg">
+          {props.rating ? props.rating?.toString() + "🍴" : "⌛️"}
+        </div>
       </CardHeader>
       <CardContent className="px-3 pb-0">
         <Image
           width={500}
-          height={150}
+          height={160}
           className="max-h-60 md:max-h-40 rounded"
           objectFit="cover"
           src={props.image}
