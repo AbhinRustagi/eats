@@ -30,6 +30,11 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
       set((state) => {
         const filters = { ...state.filters, [key]: value };
 
+        if (key === "country") {
+          filters.state = "all";
+          filters.region = "all";
+        }
+
         const filteredRestaurants = state.restaurants.filter((restaurant) =>
           Object.keys(filters).every(
             (filterKey) =>
@@ -38,6 +43,8 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
                 filters[filterKey as keyof Filters]
           )
         );
+
+        console.log(filters);
 
         return {
           filters,
