@@ -22,7 +22,9 @@ interface IDropdownSelect {
 export function DropdownSelect(props: IDropdownSelect) {
   return (
     <Select
-      onValueChange={(value) => props.updateFilter(props.name, value)}
+      onValueChange={(value) =>
+        props.updateFilter(props.name as keyof Filters, value)
+      }
       defaultValue={props.defaultValue}
     >
       <SelectTrigger className="w-[150px]">
