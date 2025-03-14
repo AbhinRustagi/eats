@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${anonymous_pro.className} antialiased`}>
-        <main className="mx-auto max-w-3xl px-3 my-12">
+        <main className="mx-auto max-w-4xl px-3 my-12">
           <Header />
           {children}
         </main>

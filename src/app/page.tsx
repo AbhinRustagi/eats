@@ -106,7 +106,7 @@ export default function Home() {
       </div>
       {isFetching && <div className="mt-6 text-lg">🟡 Fetching data...</div>}
       {!isFetching && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 gap-3 mt-8">
           {filteredRestaurants.map((place) => (
             <PlaceCard key={place.title} {...place} />
           ))}

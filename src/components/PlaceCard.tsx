@@ -16,13 +16,13 @@ export type IPlaceCard = Omit<Place, "longitude" | "latitude" | "notes">;
 
 export default function PlaceCard(props: IPlaceCard) {
   return (
-    <Card className="w-full relative overflow-hidden">
+    <Card className="w-full relative overflow-hidden shadow-none rounded-sm">
       <Link
         className="inset absolute h-full w-full z-10 top-0 left-0"
         href={`/place/${props.id}`}
       ></Link>
       <CardHeader className="py-3 px-3 flex flex-row gap-1 justify-between space-y-0 items-start">
-        <CardTitle className="text-lg font-bold flex-1">
+        <CardTitle className="text-md font-bold flex-1">
           {props.title}
         </CardTitle>
         <div className="font-bold text-lg">
