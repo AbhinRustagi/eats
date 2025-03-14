@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Anonymous_Pro } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/Header";
 
-const anonymous_pro = Anonymous_Pro({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-anonymous-pro",
+const satoshi = localFont({
+  src: "../fonts/Satoshi-Variable.ttf",
+  variable: "--font-satoshi",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${anonymous_pro.className} antialiased`}>
+      <body className={`${satoshi.className} antialiased`}>
         <main className="mx-auto max-w-4xl px-3 my-12">
           <Header />
           {children}
