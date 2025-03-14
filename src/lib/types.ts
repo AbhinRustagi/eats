@@ -28,17 +28,21 @@ export interface Filters {
   status: string;
 }
 
+export type SortBy = "name" | "rating";
+
 export interface ContextState {
   isFetching: boolean;
   restaurants: Place[];
   filters: Filters;
   filteredRestaurants: Place[];
   configs: Configs;
+  sortBy: SortBy;
 }
 
 export interface ContextAction {
   updateFetching: (isFetching: boolean) => void;
-  updateFilter: (key: keyof Filters, value: string) => void;
+  updateFilter: (key: keyof Filters | SortBy, value: string) => void;
   updateRestaurants: (restaurants: ContextState["restaurants"]) => void;
   updateConfigs: (configs: ContextState["configs"]) => void;
+  updateSortBy: (sortBy: SortBy) => void;
 }

@@ -11,7 +11,7 @@ import {
 import { Filters } from "@/lib/types";
 
 interface IDropdownSelect {
-  name: keyof Filters;
+  name: keyof Filters | "sortBy";
   options: string[];
   label: string;
   placeholder: string;

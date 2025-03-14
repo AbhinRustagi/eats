@@ -3,7 +3,9 @@ import {
   collection,
   getDocs,
   getDoc,
+  orderBy,
   doc,
+  query,
 } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { Place } from "./types";
@@ -21,7 +23,8 @@ export const db = getFirestore(app);
 
 export async function getRestaurants(): Promise<Place[]> {
   const ref = collection(db, "eats_restaurants");
-  const docs = await getDocs(ref);
+  const queryRef = query(ref, orderBy("title"));
+  const docs = await getDocs(queryRef);
   return docs.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Place[];
 }
 

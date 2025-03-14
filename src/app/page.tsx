@@ -3,6 +3,7 @@
 import PlaceCard from "@/components/PlaceCard";
 import { DropdownSelect } from "@/components/Select";
 import { getRestaurants } from "@/lib/firebase";
+import { SortBy } from "@/lib/types";
 import { useRestaurantsStore } from "@/lib/zustand";
 import { useEffect } from "react";
 
@@ -14,6 +15,7 @@ export default function Home() {
     filters,
     updateFilter,
     updateFetching,
+    updateSortBy,
     isFetching,
   } = useRestaurantsStore((state) => state);
 
@@ -92,6 +94,14 @@ export default function Home() {
           defaultValue="all"
           options={["all", "visited", "wishlisted"]}
           name="status"
+        />
+        <DropdownSelect
+          label="Sort By"
+          placeholder="Sort By"
+          options={["name", "rating"]}
+          updateFilter={(_, value: string) => updateSortBy(value as SortBy)}
+          defaultValue="name"
+          name="sortBy"
         />
       </div>
       {isFetching && <div className="mt-6 text-lg">🟡 Fetching data...</div>}

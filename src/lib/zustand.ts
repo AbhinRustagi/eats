@@ -14,6 +14,7 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
     },
     filteredRestaurants: [],
     configs: {},
+    sortBy: "name",
     isFetching: false,
     updateFetching: (isFetching) => set(() => ({ isFetching })),
     updateRestaurants: (restaurants) =>
@@ -24,6 +25,20 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
           filteredRestaurants: restaurants,
           configs,
         };
+      }),
+    updateSortBy: (sortBy) =>
+      set((state) => {
+        const filteredRestaurants = state.filteredRestaurants.sort((a, b) => {
+          if (sortBy === "name") {
+            return a.title.localeCompare(b.title);
+          }
+          if (sortBy === "rating") {
+            return (b.rating || 0) - (a.rating || 0);
+          }
+          return 0;
+        });
+
+        return { sortBy, filteredRestaurants };
       }),
     updateConfigs: (configs) => set(() => ({ configs: configs })),
     updateFilter: (key, value) =>
@@ -43,8 +58,6 @@ export const useRestaurantsStore = create<ContextState & ContextAction>(
                 filters[filterKey as keyof Filters]
           )
         );
-
-        console.log(filters);
 
         return {
           filters,
