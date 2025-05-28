@@ -5,7 +5,7 @@ export function Header() {
     <header className="mb-12">
       <h1 className="text-3xl font-bold mb-2">eats.abhin.dev</h1>
       <p className="text-muted-foreground mb-4">
-        A project by{" "}
+        A (mini) project by{" "}
         <Link
           href="https://www.abhin.dev/"
           target="_blank"
