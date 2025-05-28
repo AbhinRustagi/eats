@@ -1,63 +1,34 @@
-"use client";
-
-import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Place } from "@/lib/types";
-import Link from "next/link";
-import { bgColors } from "@/lib/tags-colors";
+import Image from "next/image";
+import { badgeVariants } from "./ui/badge";
 
 export type IPlaceCard = Omit<Place, "longitude" | "latitude" | "notes">;
 
 export default function PlaceCard(props: IPlaceCard) {
   return (
-    <Card className="w-full relative overflow-hidden shadow-none rounded-sm">
-      <Link
-        className="inset absolute h-full w-full z-10 top-0 left-0"
-        href={`/place/${props.id}`}
-      ></Link>
-      <CardHeader className="py-3 px-3 flex flex-row gap-1 justify-between space-y-0 items-start">
-        <CardTitle className="text-md font-bold flex-1">
-          {props.title}
-        </CardTitle>
-        <div className="font-bold text-lg">
-          {props.rating ? props.rating?.toString() + "🍴" : "⌛️"}
+    <div className="rounded-xl border bg-card text-card-foreground shadow overflow-hidden h-content">
+      <div className="max-w-96 min-w-52 min-h-52 max-h-88 relative w-full object-cover">
+        <Image alt={props.title} src={props.image} fill />
+        <div className="bg-gradient-to-t from-background to-transparent absolute w-full bottom-0 z-10 h-20"></div>
+      </div>
+      <div className="pt-2 px-5 pb-6">
+        <div className="flex justify-between mb-px">
+          <h2 className="text-lg">{props.title}</h2>
+          <div className="font-bold text-lg">
+            {props.rating ? props.rating?.toString() + "🍴" : "⌛️"}
+          </div>
         </div>
-      </CardHeader>
-      <CardContent className="px-3 pb-0">
-        <Image
-          width={500}
-          height={160}
-          className="max-h-60 md:max-h-40 rounded"
-          objectFit="cover"
-          src={props.image}
-          alt={props.title}
-        />
-      </CardContent>
-      <CardFooter className="py-3 px-3 flex flex-col items-start">
-        <div className="text-sm">
+        <div className="text-xs">
           📍 {props.region}, {props.state}, {props.country}
         </div>
-        <div className="flex gap-2 mt-2">
-          <div
-            className={`text-xs ${
-              bgColors[props.status]
-            } px-2 py-1 rounded-2xl`}
-          >
+        <div className="mt-2 flex gap-2">
+          <Badge className={badgeVariants({ variant: "secondary" })}>
             {props.status}
-          </div>
-          <div
-            className={`text-xs ${bgColors[props.type]} px-2 py-1 rounded-2xl`}
-          >
-            {props.type}
-          </div>
+          </Badge>
+          <Badge>{props.type}</Badge>
         </div>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }

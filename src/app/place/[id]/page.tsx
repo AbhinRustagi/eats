@@ -45,7 +45,7 @@ export default async function Page({
           {place.type}
         </div>
       </div>
-      <div className="my-4">s{place.notes}</div>
+      <div className="my-4">{place.notes}</div>
       <Image
         className="w-full object-cover h-full relative rounded-lg mt-4"
         src={place.image}
