@@ -9,7 +9,7 @@ export default function PlaceCard(props: IPlaceCard) {
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow overflow-hidden h-content">
       <div className="max-w-96 min-w-52 min-h-52 max-h-88 relative w-full object-cover">
-        <Image alt={props.title} src={props.image} fill />
+        <Image alt={props.title} src={props.image} fill objectFit="cover" />
         <div className="bg-gradient-to-t from-background to-transparent absolute w-full bottom-0 z-10 h-20"></div>
       </div>
       <div className="pt-2 px-5 pb-6">
