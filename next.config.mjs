@@ -2,10 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: [
-      "images.unsplash.com",
-      "lh3.googleusercontent.com",
-      "im1.dineout.co.in",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
   env: {
