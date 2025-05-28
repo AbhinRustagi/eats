@@ -14,7 +14,7 @@ export interface Place {
   latitude: number;
 }
 
-interface Configs {
+export interface Configs {
   [country: string]: {
     [state: string]: Set<string>;
   };
@@ -29,20 +29,3 @@ export interface Filters {
 }
 
 export type SortBy = "name" | "rating";
-
-export interface ContextState {
-  isFetching: boolean;
-  restaurants: Place[];
-  filters: Filters;
-  filteredRestaurants: Place[];
-  configs: Configs;
-  sortBy: SortBy;
-}
-
-export interface ContextAction {
-  updateFetching: (isFetching: boolean) => void;
-  updateFilter: (key: keyof Filters | SortBy, value: string) => void;
-  updateRestaurants: (restaurants: ContextState["restaurants"]) => void;
-  updateConfigs: (configs: ContextState["configs"]) => void;
-  updateSortBy: (sortBy: SortBy) => void;
-}

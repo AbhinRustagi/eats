@@ -1,13 +1,13 @@
+import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
   collection,
-  getDocs,
-  getDoc,
-  orderBy,
   doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  orderBy,
   query,
 } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
 import { Place } from "./types";
 
 const app = initializeApp({
