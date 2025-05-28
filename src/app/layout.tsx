@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter_Tight } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const inter = Inter_Tight({
   subsets: ["latin"],
@@ -27,7 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${bricolage.variable} antialiased`}>
-        <main className="mx-auto max-w-4xl px-3 my-12">{children}</main>
+        <div className="mx-auto max-w-4xl px-3 my-12">
+          <main>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

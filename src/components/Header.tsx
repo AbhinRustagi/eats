@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <header className="mb-8">
+    <header className="mb-12">
       <h1 className="text-3xl font-bold mb-2">eats.abhin.dev</h1>
       <p className="text-muted-foreground mb-4">
         A project by{" "}

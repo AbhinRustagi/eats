@@ -25,11 +25,15 @@ export default function PageContent(props: Props) {
     status: "all",
   });
 
-  const updateFilter = (key, value) => {
+  const updateFilter = (key: keyof FiltersType, value: string) => {
     const _filters = { ...filters, [key]: value };
 
     if (key === "country") {
       _filters.state = "all";
+      _filters.region = "all";
+    }
+
+    if (key === "state") {
       _filters.region = "all";
     }
 
@@ -73,44 +77,47 @@ export default function PageContent(props: Props) {
             name="country"
             updateFilter={updateFilter}
             defaultValue="all"
+            value={filters.country}
           />
           {filters.country !== "all" && (
-            <>
-              <DropdownSelect
-                label="State"
-                placeholder="State"
-                options={(() => {
-                  if (filters.country === "all") {
-                    return ["all"];
-                  }
-                  return [
-                    "all",
-                    ...Object.keys(props.configMap[filters.country]),
-                  ];
-                })()}
-                updateFilter={updateFilter}
-                defaultValue="all"
-                name="state"
-              />
-              <DropdownSelect
-                name="region"
-                label="Region"
-                placeholder="Region"
-                options={(() => {
-                  if (filters.state === "all") {
-                    return ["all"];
-                  }
+            <DropdownSelect
+              label="State"
+              placeholder="State"
+              options={(() => {
+                if (filters.country === "all") {
+                  return ["all"];
+                }
+                return [
+                  "all",
+                  ...Object.keys(props.configMap[filters.country]),
+                ];
+              })()}
+              updateFilter={updateFilter}
+              defaultValue="all"
+              name="state"
+              value={filters.state}
+            />
+          )}
+          {filters.country !== "all" && filters.state !== "all" && (
+            <DropdownSelect
+              name="region"
+              label="Region"
+              placeholder="Region"
+              options={(() => {
+                if (filters.state === "all") {
+                  return ["all"];
+                }
 
-                  const regions = Array.from(
-                    props.configMap[filters.country][filters.state]
-                  );
+                const regions = Array.from(
+                  props.configMap[filters.country][filters.state]
+                );
 
-                  return ["all", ...regions];
-                })()}
-                updateFilter={updateFilter}
-                defaultValue="all"
-              />
-            </>
+                return ["all", ...regions];
+              })()}
+              updateFilter={updateFilter}
+              defaultValue="all"
+              value={filters.region}
+            />
           )}
           <DropdownSelect
             label="Type"
@@ -119,6 +126,7 @@ export default function PageContent(props: Props) {
             updateFilter={updateFilter}
             defaultValue="all"
             name="type"
+            value={filters.type}
           />
           <DropdownSelect
             label="Status"
@@ -127,6 +135,7 @@ export default function PageContent(props: Props) {
             defaultValue="all"
             options={["all", "visited", "wishlisted"]}
             name="status"
+            value={filters.status}
           />
           <DropdownSelect
             label="Sort By"
@@ -135,6 +144,7 @@ export default function PageContent(props: Props) {
             updateFilter={(_, value: string) => updateSortBy(value as SortBy)}
             defaultValue={sortBy}
             name="sortBy"
+            value={sortBy}
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-3 mt-8">

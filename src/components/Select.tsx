@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Filters } from "@/lib/types";
+import { Label } from "./ui/label";
 
 interface IDropdownSelect {
   name: keyof Filters | "sortBy";
@@ -17,29 +18,37 @@ interface IDropdownSelect {
   placeholder: string;
   updateFilter: (key: keyof Filters, value: string) => void;
   defaultValue: string;
+  value?: string;
 }
 
 export function DropdownSelect(props: IDropdownSelect) {
   return (
-    <Select
-      onValueChange={(value) =>
-        props.updateFilter(props.name as keyof Filters, value)
-      }
-      defaultValue={props.defaultValue}
-    >
-      <SelectTrigger className="w-[150px]">
-        <SelectValue placeholder={props.placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>{props.label}</SelectLabel>
-          {props.options.map((option) => (
-            <SelectItem key={`${props.placeholder}-${option}`} value={option}>
-              {option}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="mb-3">
+      <Label className="pl-2 mb-2 block" htmlFor={props.name}>
+        {props.label}
+      </Label>
+      <Select
+        name={props.name as string}
+        onValueChange={(value) =>
+          props.updateFilter(props.name as keyof Filters, value)
+        }
+        defaultValue={props.defaultValue}
+        value={props.value}
+      >
+        <SelectTrigger className="w-[175px]">
+          <SelectValue placeholder={props.placeholder} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>{props.label}</SelectLabel>
+            {props.options.map((option) => (
+              <SelectItem key={`${props.placeholder}-${option}`} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
